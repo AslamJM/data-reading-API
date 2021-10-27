@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>readings</h1>
+    <div class="content"></div>
+
+    <script>
+        const content=document.querySelector('.content')
+        const fetchData=async()=>{
+            const response=await fetch('/api/reading')
+            const data=await response.json()
+            console.log(data);
+            const{readings}=data
+            readings.forEach(element => {
+                const distance=element.distance
+                const para = document.createElement('p')
+                para.textContent=distance
+                content.appendChild(para)
+                
+
+            });
+            
+
+
+}
+fetchData()
+    </script>
+</body>
+</html>
