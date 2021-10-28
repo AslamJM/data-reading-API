@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const readingSchema = new mongoose.Schema({
   distance: {
     type: Number,
-    required: true,
+    //required: true,
   },
 });
 

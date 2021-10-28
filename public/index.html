@@ -12,6 +12,42 @@
     <div class="content"></div>
 
     <script>
+        let dataarray=[]
+        const getData=async ()=>{
+            const response = await fetch('data.txt')
+            const data= await response.text()
+            const req=data.trim().split(/\r?\n/)
+            dataarray=req
+            
+        }
+        const postData = async ()=>{
+             await getData()
+             console.log(dataarray);
+           /* const dataobj= { distance: 456 }
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(dataobj) 
+            }
+          await fetch('/api/reading', options)*/
+
+            await dataarray.forEach((data)=>{
+                 let dataobj={distance:Number(data)}
+                 console.log(dataobj);
+                 const options = {
+                     method: 'POST',
+                     headers:{
+                         'Content-Type':'application/json'
+                     },
+                     body: JSON.stringify(dataobj)
+                 }
+                 fetch('/api/reading',options)
+             })
+          
+        }
+        
         const content=document.querySelector('.content')
         const fetchData=async()=>{
             const response=await fetch('/api/reading')
@@ -23,14 +59,15 @@
                 const para = document.createElement('p')
                 para.textContent=distance
                 content.appendChild(para)
-                
-
             });
             
 
 
+
 }
+getData()
 fetchData()
+postData()
     </script>
 </body>
 </html>
